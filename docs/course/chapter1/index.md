@@ -2,10 +2,10 @@
 
 前回の講座ではプログラミングとは何かについて解説しましたが、解説だけでは飽きると思うのでここでは皆さんに実際にコードを実行してプログラミングの楽しさを体験してもらおうと思います。
 
-プログラミングを体験する前に [AtCoder](https://atcoder.jp){:target="_blank"} に登録をしてください。  
-<!-- TODO: 登録の仕方 -->
+プログラミングを体験する前に [AtCoder](https://atcoder.jp){:target="_blank"} に登録をしてください。
 これから問題演習をしたりプログラミングを学ぶ上でAtCoderは避けて通れないと思うので登録しておいたほうがいいです。
-AtCoderとは何かについては競技プログラミングとは何かの章でお話します。
+AtCoderとは何かについては競技プログラミングとは何かの章でお話します。  
+[(参考) 登録方法のPDF](https://drive.google.com/file/d/14F-KVr6DwpIZ5coiI_g0S8HVVkyq3O4a/view?usp=sharing){:target="_blank"}
 
 登録ができたらAtCoderの [コードテスト](https://atcoder.jp/contests/practice/custom_test){:target="_blank"} を開いてください。
 
