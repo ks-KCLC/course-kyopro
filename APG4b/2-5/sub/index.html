@@ -1,0 +1,2541 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="KCLCの競プロ講座です。">
+      
+      
+        <meta name="author" content="KCLC">
+      
+      
+        <link rel="canonical" href="https://ks-KCLC.github.io/course-kyopro/APG4b/2-5/sub/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../2-6/">
+      
+      
+      <link rel="icon" href="../../../assets/img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>2.05.(補足)再帰関数のいろは - KCLC 競プロ講座</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="blue-grey">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="KCLC 競プロ講座" class="md-header__button md-logo" aria-label="KCLC 競プロ講座" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            KCLC 競プロ講座
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.05.(補足)再帰関数のいろは
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ks-KCLC/course-kyopro" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ks-KCLC/course-kyopro
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../course/" class="md-tabs__link">
+          
+  
+  
+  Course
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../1-0/" class="md-tabs__link">
+          
+  
+  
+  APG4b
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="KCLC 競プロ講座" class="md-nav__button md-logo" aria-label="KCLC 競プロ講座" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    KCLC 競プロ講座
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ks-KCLC/course-kyopro" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ks-KCLC/course-kyopro
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Course
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Course
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    講座一覧
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course/chapter0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    第0章-はじめに
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course/chapter1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    第1章-コードの実行
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course/chapter2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    第2章-C++の基礎文法
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course/chapter3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    第3章-競技プログラミングとは
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course/furoku1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    付録① 進法大好き!souta_1326君!
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course/furoku2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    付録② 二分探索
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    APG4b
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            APG4b
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    第1章
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            第1章
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.00.はじめに
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.01.出力とコメント
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.02.プログラムの書き方とエラー
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.03.四則演算と優先順位
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.04.変数と型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.05.実行順序と入力
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.06.if文・比較演算子・論理演算子
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.07.条件式の結果とbool型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.08.変数のスコープ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.09.複合代入演算子
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.10.while文
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.11.for文・break・continue
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.12.文字列と文字
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.13.配列
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.14.STLの関数
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.15.関数
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    第2章
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            第2章
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2.00.第2章について
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2.01.ループの書き方と範囲for文
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2.02.多重ループ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2.03.多次元配列
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2.04.参照
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2.05.再帰関数
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    2.05.(補足)再帰関数のいろは
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    2.05.(補足)再帰関数のいろは
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      はじめに
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      再帰関数の雰囲気を知ろう
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="再帰関数の雰囲気を知ろう">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題①
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      再帰関数を実装してみよう
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="再帰関数を実装してみよう">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題②
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      練習問題①
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      練習問題②
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      再帰関数を役立てる
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="再帰関数を役立てる">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      列挙する
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="列挙する">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      練習問題③
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      発展問題①
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      最大公約数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最大公約数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      練習問題④
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      発展問題②
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      部分和問題
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="部分和問題">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      練習問題⑤
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      発展問題③
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      章末問題
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2.06.計算量
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    第3章
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            第3章
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3.00.第3章について
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3.01.数値型
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3.02.pair／tupleとauto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3.03.STLのコンテナ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3.04.構造体
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3.05.ビット演算
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3.06.その他の機能
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      はじめに
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      再帰関数の雰囲気を知ろう
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="再帰関数の雰囲気を知ろう">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題①
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      再帰関数を実装してみよう
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="再帰関数を実装してみよう">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      例題②
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      練習問題①
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      練習問題②
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      再帰関数を役立てる
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="再帰関数を役立てる">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      列挙する
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="列挙する">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      練習問題③
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      発展問題①
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      最大公約数
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="最大公約数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      練習問題④
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      発展問題②
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      部分和問題
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="部分和問題">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      練習問題⑤
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      発展問題③
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      章末問題
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">再帰関数のいろは</h1>
+<h2 id="_2">はじめに</h2>
+<p>この章では、「再帰関数とは何か」から「再帰関数の実装方法」まで丁寧に説明します。<br />
+この記事では、<a href="https://atcoder.jp/contests/apg4b/tasks/APG4b_v" target="_blank">APG4bの該当記事</a>よりも <strong>具体例</strong> を多めに交えながら説明したつもりです。</p>
+<p>APG4b を先に読んでから、こちらの記事の練習問題だけを解いていく形でも、こちらの記事を全て読んでいく形でも、どちらでも理解することができると思います。</p>
+<p>ところで、再帰 “関数” というように、再帰関数を理解するためにはある程度の関数の知識が必要となるので、関数ってなーに？という方は <a href="../../1-15/">1.15.関数</a> を読んでください。<br />
+分からない言葉が出てきた時も、これより前の章を読んで復習することをおすすめします。  </p>
+<h2 id="_3">再帰関数の雰囲気を知ろう</h2>
+<p>まず再帰関数とはなんでしょうか。<br />
+簡潔に言えば、プログラム内で、<strong>ある関数の中</strong> にその関数 <strong>自身</strong> の呼び出しが含まれているものです。といっても分かりにくいので、以下の例1で考えてみましょう。</p>
+<h3 id="1">例題①</h3>
+<div class="admonition example">
+<p class="admonition-title">例題①</p>
+<p>今、<span class="arithmatex">\(4 \times 4\)</span> のブロックチョコレート🍫があり、これを半分に割ることを繰り返します。<br />
+何回割れば、<span class="arithmatex">\(1 \times 1\)</span> のピース <span class="arithmatex">\(16\)</span> つに分けられるでしょうか？</p>
+</div>
+<p>この問題は、計算で簡単に求められますが、あえて割っていくプロセスを言葉にすると以下のようになります。  </p>
+<blockquote>
+<p>操作：今ある <span class="arithmatex">\(4 \times 4\)</span> のチョコレートのピースを <strong>半分に割り</strong>、<br />
+　　　それによってできた <span class="arithmatex">\(2 \times 4\)</span> のピース <span class="arithmatex">\(2\)</span> つをそれぞれ <strong>半分ずつに割り</strong>、<br />
+　　　それによってできた <span class="arithmatex">\(2 \times 2\)</span> のピース <span class="arithmatex">\(4\)</span> つをそれぞれ <strong>半分ずつに割り</strong>、<br />
+　　　それによってできた <span class="arithmatex">\(2 \times 1\)</span> のピース <span class="arithmatex">\(8\)</span> つをそれぞれ <strong>半分ずつに割り</strong>、<br />
+　　　最後に <span class="arithmatex">\(1 \times 1\)</span> のピース <span class="arithmatex">\(16\)</span> つが残る。</p>
+</blockquote>
+<p>上から順に、1回, 2回, 4回, 8回と、割る操作を行うため、答えは 15回 とわかります。</p>
+<p>これは「チョコレートのピースを <strong>半分に割る</strong>」という処理をする関数に、<strong>複数回、引数としてチョコレートを渡す</strong>ということを繰り返しているといえます。
+イメージとしては、次のような関数です。</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">cut</span><span class="p">(</span><span class="n">チョコレート</span><span class="p">){</span>
+<span class="w">    </span><span class="n">チョコレートを半分に割る</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cut</span><span class="p">(</span><span class="n">割った後のチョコレート</span><span class="p">);</span>
+<span class="w">    </span><span class="n">cut</span><span class="p">(</span><span class="n">割った後のチョコレート</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>cut(割った後のチョコレート)</code> という処理が <strong>2回</strong> 書かれているのは、今あるチョコレートを半分に割って、割った後にできる <strong>2つ</strong> のピースをそれぞれまた割るためです。</p>
+<p>この、複数回割るチョコレートですが、(操作を重ねると)大きさが変わっていくため、for文などを使ったループだと実装が難しく、再帰関数を使った方が実装が楽にすむということです。
+現段階で、実装方法を理解する必要はありませんが、疑似コードを載せておきます。</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">cut</span><span class="p">(</span><span class="n">今のサイズ</span><span class="p">){</span><span class="w"> </span><span class="c1">//ブロックチョコレートの1辺の長さが引数</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">今のサイズ</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">){</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="c1">//サイズが1だとこれ以上分けられません</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">割った回数の合計</span><span class="o">++</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cut</span><span class="p">(</span><span class="n">今のサイズ</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c1">//割った内の1ピース</span>
+<span class="w">    </span><span class="n">cut</span><span class="p">(</span><span class="n">今のサイズ</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c1">//割った内のもう1ピース</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_4">再帰関数を実装してみよう</h2>
+<p>先ほどの例では、再帰関数の雰囲気しか伝わっていないと思うので、ここでは、もう少し簡単な例で実装してみましょう。</p>
+<h3 id="2">例題②</h3>
+<div class="admonition example">
+<p class="admonition-title">例題②</p>
+<p>再帰関数を使って、<span class="arithmatex">\(1\)</span> から <span class="arithmatex">\(42\)</span> を順に出力して下さい。</p>
+</div>
+<p>解説・ソースコードはこちら↓</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">){</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">43</span><span class="p">){</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">func</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+<span class="w">    </span><span class="n">func</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>まず、<code>main</code>関数が実行されます。<br />
+<code>main</code>関数には</p>
+<div class="highlight"><pre><span></span><code><span class="n">func</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
+<p>と記述されています。これは、<code>func</code> 関数に引数 <code>1</code> を渡しています。<br />
+次に <code>func</code> 関数では</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">43</span><span class="p">)</span><span class="k">return</span><span class="p">;</span>
+<span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="n">func</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
+<p>と記述されています。<br />
+はじめに2行目に注目すると、これは <code>n</code> (= <code>func</code> 関数の引数) を <strong>出力する</strong> 処理なので、<code>1</code> を出力します。<br />
+次に3行目に注目します。これは再度<code>func</code>関数を呼び出しているように見えますが、引数として新たに<code>n + 1</code>を渡しているため、呼び出された<code>func</code>関数では <strong>別の処理</strong> が行われます。<br />
+具体的には、</p>
+<blockquote>
+<p><code>main</code>関数で<code>func(1)</code>が呼び出され、<br />
+<code>func(1)</code>で<code>func(2)</code>が呼び出され、<br />
+<code>func(2)</code>で<code>func(3)</code>が呼び出され、<br />
+...</p>
+</blockquote>
+<p>という流れになります。
+<code>func(n)</code> では2行目において <code>n</code> が出力されることを踏まえれば、<code>func(1)</code>, <code>func(2)</code>, ..., <code>func(42)</code> が呼び出されれば、<code>1</code>, <code>2</code>, ..., <code>42</code>が出力されることになります。  </p>
+<p>ここで1行目に注目すると、これは、<code>n</code>が <span class="arithmatex">\(43\)</span> の時 (= <code>func(43)</code> が呼び出された時) に <code>return</code> していることが分かります。<code>return</code> はその関数を終了する処理です。この場合、返り値はありません。</p>
+<p>ここで <code>return</code> をすると、<code>func(43)</code> での <span class="arithmatex">\(43\)</span> の出力処理（2行目）や、<code>func(44)</code>の呼び出し処理(3行目)は行われないため、一連の処理は終了し、結果的に <span class="arithmatex">\(1\)</span> から <span class="arithmatex">\(42\)</span> を出力できたことになるのです。  </p>
+<p>実際にAtcoderのコードテストなどで実行すると、正しい結果が得られたことが分かります。<br />
+このように、関数がその関数自身を(引数を変えながら)繰り返し呼び出すことを再帰といいます。ある程度感覚は掴めてきたでしょうか？  </p>
+<h3 id="1_1">練習問題①</h3>
+<div class="admonition example">
+<p class="admonition-title">練習問題①</p>
+<p>再帰関数を使って、<span class="arithmatex">\(1〜100\)</span> の総和を出力してください。<br />
+分からない時も、ぜひヒントや解説を読んで、理解してみてください。</p>
+</div>
+<details class="tip">
+<summary>クリックしてヒントを表示</summary>
+<p>例2のように、再帰関数 <code>func</code> を作成し、<code>func</code> で数字を加算します。<br />
+グローバル変数を使うと簡単ですが、グローバル変数を使わないで実装するには、関数の返り値を設定すれば良いです(<code>x</code> を返り値にするには <code>return x;</code> と記述します)。</p>
+</details>
+<p>↓</p>
+<details class="note">
+<summary>クリックして解説・ソースコードを表示</summary>
+<p>例題②では、<code>func</code> 関数を作成し、<code>func(N)</code>では <code>N</code> を出力する、という処理を行なっていました。</p>
+<p>この問題も同様な考え方で解くことができます。<br />
+まず、大まかに、以下のような方針を立ててみます。</p>
+<blockquote>
+<p><code>func(1)</code> では <span class="arithmatex">\(1〜100\)</span> の和を返り値に、<br />
+<code>func(2)</code> では <span class="arithmatex">\(2〜100\)</span> の和を返り値に、<br />
+<code>func(3)</code> では <span class="arithmatex">\(3〜100\)</span> の和を返り値に、<br />
+...<br />
+<code>func(100)</code> では <span class="arithmatex">\(100〜100\)</span> の和を返り値にする</p>
+</blockquote>
+<p>このように定めれば、この問題は <code>func(1)</code> の返り値が答えになります。  </p>
+<p>ここで、<span class="arithmatex">\(1 \leq x &lt; 100\)</span> を満たす <code>x</code> に対して、<code>func(x)</code> の返り値を <code>func(x + 1)</code> の返り値を使って求めることを考えます。
+例えば、<code>func(3)</code> の返り値を <code>func(4)</code> の返り値を使って求めることを考えてみます。<br />
+<code>func(3)</code> の返り値は <span class="arithmatex">\(3〜100\)</span> の和で、<code>func(4)</code> の返り値は <span class="arithmatex">\(4〜100\)</span> ですから、<br />
+<code>func(3)</code> の返り値 = <code>3</code> + <span class="arithmatex">\(func(4)\)</span> の返り値
+が成り立っていることが分かります。
+これより、<span class="arithmatex">\(1 \leq x &lt; 100\)</span> を満たす全ての <code>x</code> に対して、<br />
+<code>func(x)</code> の返り値 = <code>x</code> + <code>func(x + 1)</code> の返り値
+が成り立つことも分かります。これをそのまま実装すればよいです。<br />
+具体的には、以下のようにします。</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">){</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// func(x)の返り値 = x + func(x + 1)の返り値</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>しかしこのままだと、永遠に <code>func</code> 関数が呼び出され続ける、無限ループが起こります。<br />
+ここでは、<code>func(100)</code> の時の返り値が <span class="arithmatex">\(1〜100\)</span> の和で、<code>func(101)</code> を呼び出す必要はありません。<br />
+よって、条件分岐を付け足せばよいです！
+完成形はこちら↓</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">){</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<h3 id="2_1">練習問題②</h3>
+<div class="admonition example">
+<p class="admonition-title">練習問題②</p>
+<p>下のリンク先の問題を再帰関数を用いて解いてください。<br />
+<a href="https://atcoder.jp/contests/abc055/tasks/abc055_b" target="black">ABC055 B - Training Camp</a> (diff: 332)</p>
+</div>
+<details class="tip">
+<summary>クリックしてヒントを表示</summary>
+<p>問題文より、<span class="arithmatex">\(1〜N\)</span> の積を求めればよいです。<br />
+基本的には練習問題1と同じように解けますが、答えの数がとても大きくなるため、<code>long long</code> 型などの大きな数を扱えるデータ型を使っても上限を超えてしまいます。<br />
+そこで、答えを <span class="arithmatex">\(10^9+7\)</span> で割った余りを求めればよいことに注目しましょう！</p>
+</details>
+<p>↓</p>
+<details class="note">
+<summary>クリックして解説・ソースコードを表示</summary>
+<p>基本的には練習問題1と同様に実装し、掛け算する毎ステップで、現在までの積を <span class="arithmatex">\(10^9 + 7\)</span> で割った余りにしてあげればよいです。
+これは、<br />
+<span class="arithmatex">\((A_1 \times A_2 \times \dots \times A_N)\ \%\ M\ = (\dots(((A_1\ \%\ M) \times A_2)\ \%\ M) \dots \times A_N)\ \%\ M\)</span>
+が成立する（つまり、「数たちの <strong>積の余り</strong>」と「数たちの <strong>余りの積</strong>」は一致する）ことを利用しています。</p>
+<p>詳しくは、<a href="https://www.studyplus.jp/430">合同式の証明</a></a>を参照してください。<br />
+このテクは競プロでよく使いますよ！<br />
+また、余りをとりながら計算していっても、掛け算する過程では約 <span class="arithmatex">\(10^{18}\)</span> の数が出てくるため、<code>int</code> 型ではなく <code>long long</code> 型を使いましょう。<br />
+ソースコードは以下のようになります↓</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+<span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">x</span><span class="p">){</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">){</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">1000000007</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<h2 id="_5">再帰関数を役立てる</h2>
+<p>今までは再帰関数を使わない方が簡単に解ける問題ばかり解いてきましたが、ここからは、再帰関数が大いに役立つ問題を解いていきます。<br />
+練習問題は、全部解いてみましょう。最初は自力で考えてみたほうが良いですが、詰まったらどんどん解説を見ましょう。<br />
+発展問題は、少し難しいのも混じっていますが、できるだけ解いてみてください。もちろん、解説を見て解くのも良いです。</p>
+<h3 id="_6">列挙する</h3>
+<h4 id="3">練習問題③</h4>
+<div class="admonition example">
+<p class="admonition-title">練習問題③</p>
+<p>下のリンク先の問題を解いてください。<br />
+<a href="https://www.hackerrank.com/contests/kclc-educational-contest/challenges/2-or-1" target="black">Hackerrank - *2 or +1</a></p>
+</div>
+<p>これは、与えられた整数 <span class="arithmatex">\(N\)</span> に対して、<span class="arithmatex">\(\times 2\)</span> または <span class="arithmatex">\(+ 1\)</span> するという操作を最大で <span class="arithmatex">\(K\)</span> 回行う必要があります。<br />
+素直に、あり得る <strong>全ての操作パターン</strong> を実行して、得られた整数の個数をカウントしていくのが1番良いです。</p>
+<p>具体的には、同じ操作を繰り返し行うことから、再帰関数を使った実装が便利です。何通りの整数が得られたかカウントする時は、<strong>違う操作手順で同じ整数が得られる場合</strong> も考慮して、グローバル配列を用いましょう。<br />
+計算量は、<span class="arithmatex">\(O(2^K)\)</span>になります。</p>
+<p>詳しくは、以下のソースコードを参照してください。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="p">;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">can</span><span class="p">[</span><span class="mi">200000</span><span class="p">];</span><span class="w"> </span><span class="c1">// can[i]は &quot;k回以下の操作で整数iを得ることができるか&quot; というbool値</span>
+
+<span class="c1">// 関数funcの引数は(現在の整数, 累計操作回数)を表す</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">num</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="n">nowk</span><span class="p">){</span>
+<span class="w">    </span><span class="c1">// 整数numが得られた</span>
+<span class="w">    </span><span class="n">can</span><span class="p">[</span><span class="n">num</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 累計操作回数がまだK回未満であれば次の操作へ</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">nowk</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">k</span><span class="p">){</span>
+<span class="w">        </span><span class="c1">// * 2の操作を行なった時</span>
+<span class="w">        </span><span class="n">func</span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="n">nowk</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// + 1の操作を行なった時</span>
+<span class="w">        </span><span class="n">func</span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="n">nowk</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span><span class="w"> </span><span class="c1">// kはグローバル変数</span>
+
+<span class="w">    </span><span class="n">func</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 操作を0回行なった時点での整数nからスタート</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">200000</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">can</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span>
+<span class="w">            </span><span class="n">res</span><span class="o">++</span><span class="p">;</span><span class="w"> </span><span class="c1">// 得られた整数の個数をカウント</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="1_2">発展問題①</h4>
+<div class="admonition example">
+<p class="admonition-title">発展問題①</p>
+<p>下のリンク先の問題を解いてください。<br />
+<a href="https://www.hackerrank.com/contests/kclc-educational-contest/challenges/2-or-1-or-1" target="black">Hackerrank - *2 or +1 or -1</a></p>
+</div>
+<details class="tip">
+<summary>クリックしてヒントを表示</summary>
+<p>基本的な考え方は、先ほどの練習問題3と同じです。<br />
+しかし、全く同じ実装をしても、入出力例3のような <span class="arithmatex">\(K\)</span> が大きいケースでは時間がかかり過ぎてしまいます。そこでひと工夫が必要です。
+ここでは、再帰関数を呼び出す回数を減らせないか考えてみましょう。<br />
+再帰関数を呼び出す回数を約 <span class="arithmatex">\(10^6\)</span> 回くらいにできれば、正解することができますよ！</p>
+</details>
+<p>↓</p>
+<details class="note">
+<summary>クリックして解説・ソースコードを表示</summary>
+<p>この問題での基本的な考え方は、練習問題3と同じです。<br />
+しかし、この問題では、各数から <span class="arithmatex">\(3\)</span> つの数が作れるため、愚直に <span class="arithmatex">\(K\)</span> 回の操作をシミュレーションすると、再帰関数の呼び出し回数は <span class="arithmatex">\(3^{20}\)</span> = 約 <span class="arithmatex">\(3 \times 10^9\)</span> 回となってTLEしてしまいます。
+では、どうやって再帰関数の呼び出し関数を減らせばよいでしょうか。
+ここで、<strong>メモ化再帰</strong> という手法を使います。<br />
+「メモ化再帰」とは、「途中の(計算)結果を配列などに格納しておいて、必要ならそれを使い回す」、というテクニックです。<br />
+今、この問題でどの部分を「メモ化」すれば良いか考えてみましょう。例えば、<span class="arithmatex">\(K = 2\)</span> の時での操作は以下のようになります。</p>
+<blockquote>
+<p>0回の操作で <code>1</code> が<br />
+1回の操作で <code>2</code> , <code>2</code>, <code>0</code> が<br />
+2回の操作で <code>4, 3, 1</code> , <code>4, 3, 1</code> , <code>0, 1</code>が<br>
+できる</p>
+</blockquote>
+<p>ここで、<span class="arithmatex">\(2\)</span> という整数が1回目の操作後に複数回登場していることに注目してください。<br />
+当然ですが、どの、<span class="arithmatex">\(2\)</span> という整数に操作をしても、その後に得られる整数は同じです。<br />
+つまり、既にある整数が出現していたら、その後に操作を続ける必要がなくなる可能性があるということです。</p>
+<p>正確にいえば、今できた整数が、既に、今以下の操作回数でつくれていたときは、その後の操作を打ち切って良いです。</p>
+<p>無駄な操作を打ち切るために、練習問題3の時のような配列を作ってみましょう。<br />
+具体的には、<code>memo[i] = 整数iをつくるための操作の最小回数</code> のような配列を作り、作れた整数が、操作の最小回数を更新した時に限って、その後の操作を続ければ良いです。</p>
+<p>このような処理によって、2種類以上の作り方が存在する整数について<br />
+(ex. <code>1 -&gt; 2 -&gt; 4 -&gt; 3</code> or <code>1 -&gt; 2 -&gt; 3</code>)
+も、正しく操作の最小回数を求めることができます。</p>
+<p>各整数について、"最小回数を更新する"回数は、高々 <span class="arithmatex">\(K\)</span> 回で良いことから、再帰関数が呼ばれる回数は多くとも <span class="arithmatex">\(2^K \times K \fallingdotseq 2 \times 10^7\)</span> 回になり、十分高速です。</p>
+<p>ソースコード↓</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">can</span><span class="p">[</span><span class="mi">2000000</span><span class="p">];</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">num</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nowk</span><span class="p">){</span><span class="w"> </span><span class="c1">// 引数はできた数,これまでの操作回数</span>
+<span class="w">    </span><span class="n">can</span><span class="p">[</span><span class="n">num</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nowk</span><span class="p">;</span><span class="w"> </span><span class="c1">// 最小回数を更新</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">nowk</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">k</span><span class="p">){</span><span class="w"> </span><span class="c1">// 次操作してもk回以下に収まっているなら</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">nowk</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">can</span><span class="p">[</span><span class="n">num</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">]){</span><span class="w"> </span><span class="c1">// *2した数が最小回数を更新するなら</span>
+<span class="w">            </span><span class="n">func</span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">nowk</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">nowk</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">can</span><span class="p">[</span><span class="n">num</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]){</span><span class="w"> </span><span class="c1">// +1した数が最小回数を更新するなら</span>
+<span class="w">            </span><span class="n">func</span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">nowk</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">){</span><span class="w"> </span><span class="c1">//0以上の整数が作れるなら</span>
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">nowk</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">can</span><span class="p">[</span><span class="n">num</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]){</span><span class="w"> </span><span class="c1">//-1した数が最小回数を更新するなら</span>
+<span class="w">                </span><span class="n">func</span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">nowk</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+<span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2000000</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="w">        </span><span class="n">can</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"> </span><span class="c1">// 初期化</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">can</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// 1という数は0回の操作で作れる</span>
+<span class="w">    </span><span class="n">func</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2000000</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">can</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">k</span><span class="p">){</span>
+<span class="w">            </span><span class="n">res</span><span class="o">++</span><span class="p">;</span><span class="w"> </span><span class="c1">// もしk回以内に作れているなら答えを+1</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<h3 id="_7">最大公約数</h3>
+<h4 id="4">練習問題④</h4>
+<div class="admonition example">
+<p class="admonition-title">練習問題④</p>
+<p>下のリンク先の問題を解いてください。<br />
+<a href="https://www.hackerrank.com/contests/kclc-educational-contest/challenges/gcd-basic" target="black">Hackerrank - GCD (Basic)</a><br />
+ただし、この問題は前提知識がないと解くのが難しいので、わからない場合はヒントを見ることを推奨します。</p>
+</div>
+<details class="tip">
+<summary>クリックしてヒントを表示</summary>
+<p>この問題は正整数 <span class="arithmatex">\(A, B\)</span> がともに大きいため、<span class="arithmatex">\(1\)</span> から順に素因数を探していく方法では、時間がかかり過ぎてしまいます。<br />
+そこで <strong><span class="arithmatex">\(Euclid\)</span> の互除法</strong>を利用して求めます。</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(Euclid\)</span> の互除法とは<br />
+<span class="arithmatex">\(Euclid\)</span> の互除法は、簡単にいえば2つの数の最大公約数を簡単に求める手法です。<br />
+  これはみなさんが自分で最大公約数を求める時に役立つのはもちろん、コンピューターに大きな数の最大公約数を求めてもらう時にも役立ちます。<br />
+  具体的には、</p>
+<blockquote>
+<p><span class="arithmatex">\(a\)</span> を <span class="arithmatex">\(b\)</span> で割った余りを <span class="arithmatex">\(r\)</span> としたとき<br />
+<span class="arithmatex">\(GCD(a, b) = GCD(b, r)\)</span><br />
+(ただし、<span class="arithmatex">\(GCD(a, b)\)</span> は <span class="arithmatex">\(a\)</span> と <span class="arithmatex">\(b\)</span> の最大公約数を表す)</p>
+</blockquote>
+<p>という性質です。</p>
+</li>
+</ul>
+<ul>
+<li>
+<p><span class="arithmatex">\(Euclid\)</span> の互除法はどうして成り立つのか<br />
+  この <span class="arithmatex">\(Euclid\)</span> の互除法は、主に大きな数の最大公約数を求める時に役立つと述べましたが、これは与えられた <span class="arithmatex">\(2\)</span> つの数を、<span class="arithmatex">\(GCD\)</span> を変えずに小さく変形していっています。<br />
+  具体的に、どのような変形をすれば、<span class="arithmatex">\(2\)</span> つの数を、<span class="arithmatex">\(GCD\)</span> を変えずに小さくできるか考えてみましょう。</p>
+<p>例として、<span class="arithmatex">\(63\)</span> と <span class="arithmatex">\(49\)</span> で考えてみます。<span class="arithmatex">\(GCD(63, 49) = 7\)</span> です。<br />
+早速小さい数字に変形したいのですが、ここで、<strong><span class="arithmatex">\(63\)</span> も <span class="arithmatex">\(49\)</span> も <span class="arithmatex">\(GCD(63, 49)\)</span> の倍数</strong>であることに注目してください。<br />
+最大公約数なんだから当たり前じゃん、と思うでしょうが、これはとても重要です。<br>
+なぜなら、これは <strong><span class="arithmatex">\(63\)</span> と <span class="arithmatex">\(49\)</span> の差 (<span class="arithmatex">\(= 14\)</span>) も <span class="arithmatex">\(GCD(63, 49)\)</span>の倍数</strong> であることを意味しているからです。<br />
+つまり、<span class="arithmatex">\(GCD(63, 49) = GCD(63, 14) = GCD(14, 49)\)</span> が成り立つのです。</p>
+<p><strong>(補足) 厳密には(難)</strong></p>
+<blockquote>
+<p><span class="arithmatex">\(a \leq b\)</span> を満たす2つの整数 <span class="arithmatex">\(a, b\)</span> について、<span class="arithmatex">\(a = p \times GCD(a, b), b = q \times GCD(a, b)\)</span> となるように整数 <span class="arithmatex">\(p, q\)</span> を定める。<br />
+すると、<span class="arithmatex">\(GCD\)</span> の定義から、<span class="arithmatex">\(p\)</span> と <span class="arithmatex">\(q\)</span> は互いに素である。<br />
+ここで、<span class="arithmatex">\(GCD(b-a, a) \ne GCD(a, b)\)</span>と仮定すると、</p>
+<p><span class="arithmatex">\(GCD(b - a, a) \ne GCD(a, b)\)</span><br />
+<span class="arithmatex">\(\Leftrightarrow GCD((q - p) \times GCD(a, b), p \times GCD(a, b)) \ne GCD(a, b)\)</span><br />
+<span class="arithmatex">\(\Leftrightarrow GCD(q - p, p) &gt; 1\)</span>  </p>
+<p>が成り立つ。<br />
+しかし、<span class="arithmatex">\(q - p\)</span> と <span class="arithmatex">\(p\)</span> が共通因数を持つということは、この2つの和である <span class="arithmatex">\(q\)</span> も、<span class="arithmatex">\(p\)</span> との共通因数を持っているということになり、これは矛盾。<br />
+よって、<span class="arithmatex">\(GCD(b - a, a) = GCD(a, b)\)</span> が示された。 
+同様にして、<span class="arithmatex">\(GCD(b - a, b) = GCD(a, b)\)</span> も成り立つ。</p>
+</blockquote>
+<p>ここでは、より大きい数を小さくしたいので、<span class="arithmatex">\(63\)</span> を <span class="arithmatex">\(14(63 - 49)\)</span> に変えて、<span class="arithmatex">\(GCD(14, 49)\)</span> を求めることにします。</p>
+<p>同様に変形をすると、<span class="arithmatex">\(GCD(14, 49) = GCD(14, 35)\)</span>となります。<br />
+さらに変形をしていくと、<span class="arithmatex">\(GCD(14, 49) = GCD(14, 35) = GCD(14, 21) = GCD(14, 7)\)</span>となりますが、この3ステップでは、いずれも<strong>小さい数が <span class="arithmatex">\(14\)</span></strong>であるため、どれも、大きい数から<span class="arithmatex">\(14\)</span>を引くという変形になっています。<br />
+これは、「<span class="arithmatex">\(49\)</span>」から「<span class="arithmatex">\(14\)</span>」を<strong>できるだけ引く</strong> <span class="arithmatex">\(=\)</span>「<span class="arithmatex">\(49\)</span>」を「<span class="arithmatex">\(14\)</span>」で<strong>割った余りにする</strong>、という操作にまとめられます。<br />
+つまり、<span class="arithmatex">\(a\)</span> を <span class="arithmatex">\(b\)</span> で割った余りを <span class="arithmatex">\(r\)</span> としたとき、<span class="arithmatex">\(GCD(a, b) = GCD(b, r)\)</span>が成り立つことがわかり、これはユークリッドの互除法そのものです！！</p>
+<p>これらを踏まえて、<span class="arithmatex">\(GCD(63, 49)\)</span> を求める流れは以下のようになります。</p>
+<blockquote>
+<p><span class="arithmatex">\(GCD(63,49)\)</span> <br />
+<span class="arithmatex">\(=GCD(49,14)\)</span> ← <span class="arithmatex">\(63\)</span> を <span class="arithmatex">\(49\)</span> で割った余りは <span class="arithmatex">\(14\)</span><br />
+<span class="arithmatex">\(=GCD(14,7)\)</span> ← <span class="arithmatex">\(49\)</span> を <span class="arithmatex">\(14\)</span> で割った余りは <span class="arithmatex">\(7\)</span>  </p>
+</blockquote>
+<p>今、<span class="arithmatex">\(14\)</span> と <span class="arithmatex">\(7\)</span> という数字が出てきましたが、<span class="arithmatex">\(14\)</span> を <span class="arithmatex">\(7\)</span> で割った余りは <span class="arithmatex">\(0\)</span> であるため、最大公約数は <span class="arithmatex">\(7\)</span> であることが容易にわかります。</p>
+<p>以上で、<span class="arithmatex">\(GCD(63, 49)\)</span> を求めることができました。</p>
+<p>あとは、この操作を再帰関数を用いて実装すればよいです。<br />
+詳しい実装方法は、下の解説に書いてあります。</p>
+</li>
+</ul>
+</details>
+<p>↓</p>
+<details class="note">
+<summary>クリックして解説を表示</summary>
+<p>解法はヒントに書いてあります。ここでは、実装方法を述べます。<br />
+例えば、<span class="arithmatex">\(GCD(63,49)\)</span> を求める時、変形の流れは以下のようになるのでした。</p>
+<blockquote>
+<p><span class="arithmatex">\(GCD(63,49)\)</span> <br />
+<span class="arithmatex">\(=GCD(49,14)\)</span> ← <span class="arithmatex">\(63\)</span> を <span class="arithmatex">\(49\)</span> で割った余りは <span class="arithmatex">\(14\)</span><br />
+<span class="arithmatex">\(=GCD(14,7)\)</span> ← <span class="arithmatex">\(49\)</span> を <span class="arithmatex">\(14\)</span> で割った余りは <span class="arithmatex">\(7\)</span>  </p>
+</blockquote>
+<p>よって、関数 <code>MyGCD</code> をつくり、引数に <code>a</code>, <code>b</code> を指定し、返り値 (=答え) に <code>GCD(b, a % b)</code> を指定すれば良いです。</p>
+<p>具体的には、以下のようになります。</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">MyGCD</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">A</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">B</span><span class="p">;</span>
+<span class="w">      </span><span class="k">else</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">MyGCD</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">B</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+</code></pre></div>
+<p>しかし、ヒントでは、「大きい数」を「大きい数を小さい数で割った余り」にする、と書かれていたのに、このコードでは <code>a</code>, <code>b</code> の大小を判定する記述はありません。</p>
+<p>これは、例えば、<code>MyGCD(49,64)</code> を呼び出した時、<span class="arithmatex">\(49\)</span> を <span class="arithmatex">\(64\)</span> で割った余りを計算しますが、結局次に呼び出されるのが <code>MyGCD(64, 49 % 64)</code> <span class="arithmatex">\(=\)</span> <code>MyGCD(64, 49)</code> となるため、大小が逆転することを利用しています。</p>
+<p>よって大小を判定する記述は不要で、あとは関数内1行目に、<code>a</code> が <code>b</code> で割り切れた場合に <code>MyGCD(a, b)</code> は <code>b</code> である、という処理をつけています。</p>
+<div class="admonition warning">
+<p class="admonition-title">注意点</p>
+<p>自分で実装したこの関数名を <code>gcd</code> (小文字) として、Atcoderのコードテストなどで実行すると挙動がおかしくなります。</p>
+<p>なぜなら、C++の標準ライブラリに、最大公約数を求める <code>gcd</code> という関数があり、そちらが呼び出されることがあるからです。</p>
+<p>しかしこの <code>gcd</code> 関数は <strong>Atcoderで使用することはできます</strong> が、Hackerrankでは使用できません(バージョンが古いため)。</p>
+<p>代わりに、<code>__gcd</code> という関数を使用することはできます。<br />
+こちらであれば、この問題を正解することができます。ぜひやってみてください。</p>
+</div>
+</details>
+<h4 id="2_2">発展問題②</h4>
+<div class="admonition example">
+<p class="admonition-title">発展問題②</p>
+<p>下のリンク先の問題を解いてください。<br />
+<a href="https://atcoder.jp/contests/abc070/tasks/abc070_c" target="black">ABC070 C - Multiple Blocks</a></p>
+</div>
+<details class="note">
+<summary>クリックして解説を表示</summary>
+</details>
+<p>この問題は、<span class="arithmatex">\(T\)</span> 全ての最小公倍数を求める問題です。<br />
+  どのように求めれば良いでしょうか。<br />
+  みなさんは、手計算で最小公倍数を求める時、下の図のようなものを使うかもしれません。</p>
+<p><img alt="LCM" src="../lcm.png" width="50%" /></p>
+<p>この図で、左側の列に書かれている数たちは、もとの数たちの共通因数ですから、左側の列の数たちの積は、最大公約数 (<span class="arithmatex">\(GCD\)</span>) になっているはずです。<br />
+  つまり、コンピュータで最大公約数を求めてしまえば、私たちが手計算する時と同じ原理で、最小公倍数を求めることができます。</p>
+<p><span class="arithmatex">\(G=GCD(T_1, T_2, \dots, T_N)\)</span>、最小公倍数を <span class="arithmatex">\(LCM(\dots)\)</span> として式にすると、</p>
+<p><span class="arithmatex">\(LCM(T_1, T_2, \dots, T_N) = (T_1 / G) \times (T_2 / G) \times \dots \times (T_N / G) \times G\)</span></p>
+<p>となります。</p>
+<p>複数の数の最小公倍数/最大公約数は、前から2つずつ順に求めてけばいいことを利用すれば、ソースコードはこのような感じになります。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">MyLCM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"> </span><span class="c1">// 最小公倍数を格納する。初期値は a_0</span>
+
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">MyGCD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__gcd</span><span class="p">(</span><span class="n">MyLCM</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">        </span><span class="n">MyLCM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">MyLCM</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">MyGCD</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">MyGCD</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">MyGCD</span><span class="p">;</span><span class="w"> </span><span class="c1">// i 以前の最小公約数と a_i の最小公約数を求めている。</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">MyLCM</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="_8">部分和問題</h3>
+<h4 id="5">練習問題⑤</h4>
+<div class="admonition example">
+<p class="admonition-title">練習問題⑤</p>
+<p>下のリンク先の問題を解いてください。<br />
+<a href="https://www.hackerrank.com/contests/kclc-educational-contest/challenges/subbill-sum-problem/problem" target="black">Hackerrank - SubBill Sum Problem</a></p>
+</div>
+<details class="note">
+<summary>クリックして解説・ソースコードを表示</summary>
+<p><a href="https://qiita.com/drken/items/23a4f604fa3f505dd5ad#3-1-部分和問題&quot;" target="black">こちら</a>と同じ問題です。<br />
+ソースコード例だけ載せておきます。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bits/stdc++.h&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">solve</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">){</span><span class="w"> </span><span class="c1">// 0~i番目の紙幣を使って価値の和をvにすることは可能か？</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">v</span><span class="p">){</span><span class="w"> </span><span class="c1">// i番目の紙幣を使えば実現可能</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">solve</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">solve</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">solve</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">))</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Yes&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;No&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<h4 id="3_1">発展問題③</h4>
+<div class="admonition example">
+<p class="admonition-title">発展問題③</p>
+<p>下のリンク先の問題を解いてください。<br />
+<a href="https://atcoder.jp/contests/tdpc/tasks/tdpc_contest" target="black">Atcoder - Typical DP Contest A - コンテスト</a></p>
+</div>
+<details class="tip">
+<summary>クリックしてヒントを表示</summary>
+<p>練習問題5とあまり変わらない解法で解けますが、全く同じように実装すると、計算量が　<span class="arithmatex">\(O(2^N)\)</span>　となり、TLEします。　　
+ここで、発展問題1で使った考え方を適用してみましょう。</p>
+</details>
+<p>↓</p>
+<details class="note">
+<summary>クリックして解説を表示</summary>
+</details>
+<p><a href="https://www.creativ.xyz/tdpc-a-1-660/">こちらのサイト</a></a>がわかりやすいです。</p>
+<h3 id="_9">章末問題</h3>
+<p>ここまでお疲れ様でした。</p>
+<p>最後に、以下の問題を解いてみましょう。<br />
+全てを短時間で解くのは大変ですが、ここまで来た方ならきっと解けると思います。
+中には、再帰関数を使わなくても解ける問題もありますが、ぜひ再帰関数を使ってチャレンジしてみてください。</p>
+<ul>
+<li><a href="https://atcoder.jp/contests/abc148/tasks/abc148_c" target="black">ABC148 C - Snack</a> (diff: <font color = "gray">63</font>)</li>
+<li><a href="https://atcoder.jp/contests/abc079/tasks/abc079_c" target="black">ABC079 C - Train Ticket</a> (diff: <font color = "gray">337</font>)</li>
+<li><a href="https://atcoder.jp/contests/abc109/tasks/abc109_c" target="black">ABC109 C - Skip</a> (diff: <font color = "brown">542</font>)</li>
+<li><a href="https://atcoder.jp/contests/abc118/tasks/abc118_c" target="black">ABC118 C - Monsters Battle Royale</a> (diff: <font color = "brown">646</font>)</li>
+<li><a href="https://www.hackerrank.com/contests/kclc-educational-contest/challenges/cookie-factory" target="black">Hackerrank - Cookie Factory</a> (<font color = "brown">茶diff</font>相当)</li>
+<li><a href="https://atcoder.jp/contests/abc161/tasks/abc161_d" target="black">ABC161 D - Lunlun Number</a> (diff: <font color = "green">991</font>)</li>
+<li><a href="https://atcoder.jp/contests/abc114/tasks/abc114_c" target="black">ABC114 C - 755</a> (diff: <font color = "green">1055</font>)</li>
+<li><a href="https://atcoder.jp/contests/arc061/tasks/arc061_a" target="black">ABC045 C - たくさんの数式</a> (diff: <font color = "green">1089</font>)</li>
+<li><a href="https://atcoder.jp/contests/joisc2010/tasks/joisc2010_poster" target="black">JOIポスター</a> (JOI難易度5)</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/ks-KCLC/course-kyopro" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/ks_KCLC" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../../../assets/js/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
